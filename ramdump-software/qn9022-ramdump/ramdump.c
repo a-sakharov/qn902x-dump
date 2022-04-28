@@ -145,15 +145,12 @@ int main(int argc, char **argv)
 
         //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x10000000, 0x00010000, "ram_0.bin"));
         //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x10000000, 0x00010000, "ram_1.bin"));
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x10000000, 0x00010000, "ram_2.bin"));
 
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x00000000, 0x01000000 - 1, "BootLoader_0.bin"));
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x00000000, 0x01000000 - 1, "BootLoader_1.bin"));
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x00000000, 0x01000000 - 1, "BootLoader_2.bin"));
+        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x00000000, 0x01000000, "BootLoader_0.bin"));
+        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x00000000, 0x01000000, "BootLoader_1.bin"));
 
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x01000000, 0x00018000 - 1, "ROM_0.bin"));
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x01000000, 0x00018000 - 1, "ROM_1.bin"));
-        //FAILFALSE(QN902x_ramdump_DumpRam(device, 0x01000000, 0x00018000 - 1, "ROM_2.bin"));
+        FAILFALSE(QN902x_ramdump_DumpRam(device, 0x01000000, 0x00018000, "ROM_0.bin"));
+        FAILFALSE(QN902x_ramdump_DumpRam(device, 0x01000000, 0x00018000, "ROM_1.bin"));
 
         FAILFALSE(QN902x_ramdump_DumpFlash(device, 0x00000000, 0x00020000, "flash_0.bin"));
         FAILFALSE(QN902x_ramdump_DumpFlash(device, 0x00000000, 0x00020000, "flash_1.bin"));
@@ -716,7 +713,6 @@ bool QN902x_ramdump_DumpFlash(TRANSPORT device, uint32_t addr, uint32_t length, 
     start = time(NULL);
     while (dumped < length)
     {
-        FAILFALSE(QN902x_ramdump_ReadFlash(device, 0x1000, 0x10, packet));
         FAILFALSE(QN902x_ramdump_ReadFlash(device, addr + dumped, sizeof(packet), packet));
 #if 0
         printf("%.8X  |  ", addr + dumped);
@@ -1100,7 +1096,7 @@ bool Transport_SetBaudRate(TRANSPORT device, uint32_t baudrate)
             break;
 
         default:
-            return true;
+            return false;
             break;
     }
 
@@ -1305,7 +1301,7 @@ bool Transport_SetBaudRate(TRANSPORT device, uint32_t baudrate)
         break;
 
     default:
-        return true;
+        return false;
         break;
     }
 
@@ -1468,7 +1464,7 @@ bool Transport_SetBaudRate(TRANSPORT device, uint32_t baudrate)
         break;
 
     default:
-        return true;
+        return false;
         break;
     }
 
